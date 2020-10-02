@@ -1,5 +1,5 @@
 # Nodejs API
-A basic user authentication API to retrieve some data
+A user authentication API with Google and Facebook validation options
 
 ## Project Setup
 
