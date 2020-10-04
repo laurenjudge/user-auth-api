@@ -1,5 +1,6 @@
 const JWT = require('jsonwebtoken');
 const User = require('../models/users');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 signToken = user => {
   return JWT.sign({
@@ -7,7 +8,7 @@ signToken = user => {
     sub: user._id,
     iat: new Date().getTime(),
     exp: new Date().setDate(new Date().getDate() + 1)
-  }, 'placeholderforlongsecretpassword');
+  }, JWT_SECRET);
 }
 
 module.exports = {
@@ -31,5 +32,6 @@ module.exports = {
   },
 
   getPosts: async(req, res, next) => {
+    res.json({posts: "You are authorized to fetch posts"})
   }
 }
