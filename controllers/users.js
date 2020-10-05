@@ -1,4 +1,5 @@
 const JWT = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('../models/users');
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -14,13 +15,17 @@ signToken = user => {
 module.exports = {
   signUp: async(req, res, next) => {
     const { email, password } = req.body;
-
     const foundUser = await User.findOne({ email });
     if(foundUser) {
       return res.status(403).json({ error: 'Email is already in use' });
     }
 
-    const newUser = new User({ email, password })
+    const newUser = new User({ 
+      method: 'local',
+      email: email, 
+      password: password
+    })
+
     await newUser.save();
 
     const token = signToken(newUser);
@@ -33,7 +38,7 @@ module.exports = {
     res.status(200).json({ token })
   },
 
-  getPosts: async(req, res, next) => {
-    res.json({posts: "You are authorized to fetch posts"})
+  getProtectedData: async(req, res, next) => {
+    res.json({posts: "You are authorized to fetch data"})
   }
 }

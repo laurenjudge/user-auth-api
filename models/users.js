@@ -2,12 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true }
+  method: { type: String, required: true },
+  email: { type: String, lowercase: true, required: true },
+  password: { type: String },
+  id: { type: String }
 });
 
 userSchema.pre('save', async function(next) {
   try {
+    if(this.method !== 'local') {
+      next();
+    }
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(this.password, salt);
     this.password = passwordHash;
