@@ -29,6 +29,7 @@ module.exports = {
   },
 
   signIn: async(req, res, next) => {
+    console.log('successful login')
   },
 
   getPosts: async(req, res, next) => {

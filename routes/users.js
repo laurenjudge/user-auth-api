@@ -9,7 +9,7 @@ router.route('/signup')
   .post(UsersController.signUp);
 
 router.route('/signin')
-  .post(UsersController.signIn);
+  .post(passport.authenticate('local', {session: false}), UsersController.signIn);
 
 router.route('/posts')
   .get(passportJWT, UsersController.getPosts);
