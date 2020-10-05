@@ -29,7 +29,8 @@ module.exports = {
   },
 
   signIn: async(req, res, next) => {
-    console.log('successful login')
+    const token = signToken(req.user);
+    res.status(200).json({ token })
   },
 
   getPosts: async(req, res, next) => {
