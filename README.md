@@ -1,6 +1,5 @@
 # Nodejs API
-A user authentication API with Google and Facebook validation options
-
+A user authentication API with options to signin/signup using Google, Facebook or a local strategy
 ## Project Setup
 
 Run "npm install" inside this project folder to install all dependencies.
